@@ -1,6 +1,6 @@
 :root {
   --orange: #ffa31a;
-  --grey: #808080;
+  --grey: #2c2c2c;
   --black: #292929;
   --darkBlack: #1b1b1b;
   --white: #ffffff;
@@ -20,8 +20,13 @@ body {
   background-color: var(--darkBlack);
 }
 
+.App {
+  height: 100vh;
+}
+
 .mainContainer {
   padding: 25px;
+  height: 100%;
 }
 
 code {
