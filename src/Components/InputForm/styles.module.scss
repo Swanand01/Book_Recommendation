@@ -1,0 +1,10 @@
+.inputForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    gap: 30px;
+
+    border-radius: 12px;
+    background-color: var(--grey);
+}
