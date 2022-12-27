@@ -4,7 +4,9 @@ export default function StandardButton({ text, onClick, disabled, style }) {
     return (
         <div
             className={`${styles.standardButton} ${disabled && styles.disabled}`}
-            onClick={!disabled && onClick}
+            onClick={() => {
+                if (!disabled) onClick();
+            }}
             style={style}
         >
             {text}

@@ -1,6 +1,6 @@
 import styles from "./styles.module.scss";
 
-export default function SearchBar({ onSearch, searchQuery, setSearchQuery }) {
+export default function SearchBar({ onSearch, onChange, searchQuery, setSearchQuery }) {
     return (
         <input
             type="search"
@@ -9,6 +9,7 @@ export default function SearchBar({ onSearch, searchQuery, setSearchQuery }) {
             id={styles.searchbarInput}
             value={searchQuery}
             onChange={(e) => {
+                onChange(e.target.value);
                 setSearchQuery(e.target.value);
             }}
             onKeyDown={(e) => {
@@ -16,6 +17,7 @@ export default function SearchBar({ onSearch, searchQuery, setSearchQuery }) {
                     searchQuery.trim() !== "" && onSearch(searchQuery);
                 }
             }}
+            autoComplete={"off"}
         />
     )
 }
