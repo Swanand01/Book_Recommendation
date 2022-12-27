@@ -29,7 +29,7 @@ def recommend_books(request, book_name):
     index = np.where(pt.index == book_name)[0][0]
     similar_items = sorted(
         list(enumerate(similarity_scores[index])), key=lambda x: x[1], reverse=True
-    )[0:6]
+    )[1:6]
 
     book = books[books["Book-Title"] == book_name].iloc[0]
 
@@ -39,7 +39,7 @@ def recommend_books(request, book_name):
         item = {
             "title": temp_df.drop_duplicates("Book-Title")["Book-Title"].values[0],
             "author": temp_df.drop_duplicates("Book-Title")["Book-Author"].values[0],
-            "cover_image": temp_df.drop_duplicates("Book-Title")["Image-URL-M"].values[0]
+            "cover_image": temp_df.drop_duplicates("Book-Title")["Image-URL-L"].values[0]
         }
         data.append(item)
 
@@ -47,7 +47,7 @@ def recommend_books(request, book_name):
         "success": True,
         "book_name": book_name,
         "author": book["Book-Author"],
-        "cover_image": book["Image-URL-M"],
+        "cover_image": book["Image-URL-L"],
         "similar_books": data
     })
 
