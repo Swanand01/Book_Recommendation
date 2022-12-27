@@ -1,0 +1,57 @@
+.bookCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    width: 200px;
+    padding-bottom: 20px;
+    border-radius: 15px;
+
+    background-color: var(--grey);
+    color: var(--white);
+
+    cursor: pointer;
+}
+
+.bookCoverImage {
+    height: 300px;
+    width: 100%;
+    border-radius: 12px 12px 0 0;
+    object-fit: cover;
+}
+
+.textOverflow {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 90%;
+    text-align: center;
+}
+
+.bookTitle {
+    font-size: 24px;
+}
+
+.bookAuthor {
+    font-size: 22px;
+}
+
+@media only screen and (max-width: 768px) {
+    .bookCard {
+        width: 140px;
+    }
+
+    .bookCoverImage {
+        height: 200px;
+    }
+
+    .bookTitle {
+        font-size: 20px;
+    }
+
+    .bookAuthor {
+        font-size: 18px;
+    }
+}

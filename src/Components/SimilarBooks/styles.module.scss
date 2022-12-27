@@ -1,0 +1,12 @@
+.similarBooks {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+h1 {
+    text-align: center;
+    color: var(--white);
+    margin-bottom: 30px;
+}
