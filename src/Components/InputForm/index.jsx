@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import useFetch from "../../API/useFetch";
 
 import StandardButton from "../StandardButton";
@@ -9,11 +10,12 @@ import { API_ENDPOINTS } from "../../API/ENDPOINTS";
 
 import styles from "./styles.module.scss";
 
-export default function InputForm() {
+export default function InputForm({ style }) {
     const [searchQuery, setSearchQuery] = useState("");
     const [dropDownActive, setDropDownActive] = useState(false);
     const [autocompleteSuggestions, setAutocompleteSuggestions] = useState([]);
 
+    const navigate = useNavigate();
     const [getAutocompleteSuggestions, suggestionData] = useFetch();
 
     useEffect(() => {
@@ -33,8 +35,8 @@ export default function InputForm() {
 
 
     return (
-        <div className={styles.inputForm}>
-            <div className="" style={{ position: "relative" }}>
+        <div className={styles.inputForm} style={style}>
+            <div style={{ position: "relative" }}>
                 <SearchBar
                     onSearch={() => { }}
                     onChange={(e) => {
@@ -62,7 +64,7 @@ export default function InputForm() {
                 }
             </div>
             <StandardButton
-                onClick={() => { console.log("OK"); }}
+                onClick={() => { navigate(`/book/${searchQuery}`) }}
                 disabled={searchQuery.trim() === ""}
                 text={"Get Recommendations"}
             />

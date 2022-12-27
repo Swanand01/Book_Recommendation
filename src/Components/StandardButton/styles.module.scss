@@ -18,3 +18,10 @@
     opacity: 0.3;
     cursor: default;
 }
+
+@media only screen and (max-width: 768px) {
+    .standardButton {
+        font-size: 18px;
+        padding: 10px 14px;
+    }
+}
