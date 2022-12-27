@@ -18,7 +18,7 @@ similarity_scores = pickle.load(
 
 
 @api_view(["GET"])
-def recommend_book(request, book_name):
+def recommend_books(request, book_name):
     if not book_name in pt.index:
         return Response({
             "success": False,
@@ -29,7 +29,9 @@ def recommend_book(request, book_name):
     index = np.where(pt.index == book_name)[0][0]
     similar_items = sorted(
         list(enumerate(similarity_scores[index])), key=lambda x: x[1], reverse=True
-    )[1:6]
+    )[0:6]
+
+    book = books[books["Book-Title"] == book_name].iloc[0]
 
     data = []
     for i in similar_items:
@@ -44,6 +46,8 @@ def recommend_book(request, book_name):
     return Response({
         "success": True,
         "book_name": book_name,
+        "author": book["Book-Author"],
+        "cover_image": book["Image-URL-M"],
         "similar_books": data
     })
 
@@ -51,7 +55,7 @@ def recommend_book(request, book_name):
 @api_view(["GET"])
 def book_title_autocomplete(request, book_name):
     books = Book.objects.filter(
-        title__contains=book_name).values_list("title", flat=True)
+        title__contains=book_name)[:5].values_list("title", flat=True)
     return Response({
         "book_name": book_name,
         "suggestions": books
