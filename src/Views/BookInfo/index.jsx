@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import useFetch from "../../API/useFetch";
 
 import SimilarBooks from "../../Components/SimilarBooks";
+import SkeletonLoader from "../../Components/SkeletonLoader";
 
 import { API_ENDPOINTS } from "../../API/ENDPOINTS";
 
@@ -26,32 +27,72 @@ export default function BookInfo() {
             </div>
             {
                 Object.keys(apiData).length > 0 &&
-                    apiData.success ? (
+                (apiData.success ? (
                     <div className={styles.container}>
                         <div className={styles.bookInfoContainer}>
                             <div className={styles.bookInfo}>
                                 <div className={styles.bookCoverImage}>
-                                    <img
-                                        src={apiData.cover_image}
-                                        alt=""
-                                    />
+                                    {
+                                        isLoading ?
+                                            <SkeletonLoader
+                                                style={{
+                                                    height: 300,
+                                                    width: 200,
+                                                    backgroundColor: "#cccdcd",
+                                                    borderRadius: 5,
+                                                    marginBottom: 10
+                                                }}
+                                            />
+                                            : <img
+                                                src={apiData.cover_image}
+                                                alt=""
+                                            />
+                                    }
                                 </div>
                                 <div className={styles.bookTitle}>
-                                    {apiData.book_name}
+                                    {
+                                        isLoading ?
+                                            <SkeletonLoader
+                                                style={{
+                                                    height: 30,
+                                                    width: 250,
+                                                    backgroundColor: "#cccdcd",
+                                                    borderRadius: 5,
+                                                    marginBottom: 10
+                                                }}
+                                            /> :
+                                            apiData.book_name
+                                    }
                                 </div>
                                 <div className={styles.bookAuthor}>
-                                    {apiData.author}
+                                    {
+                                        isLoading ?
+                                            <SkeletonLoader
+                                                style={{
+                                                    height: 20,
+                                                    width: 200,
+                                                    backgroundColor: "#cccdcd",
+                                                    borderRadius: 5,
+                                                    marginBottom: 10
+                                                }}
+                                            /> :
+                                            apiData.author
+                                    }
                                 </div>
                             </div>
                         </div>
                         <hr />
                         <div className={styles.similarBooks}>
-                            <SimilarBooks data={apiData.similar_books} title={apiData.book_name} />
+                            <SimilarBooks
+                                data={apiData.similar_books}
+                                title={apiData.book_name}
+                                isLoading={isLoading}
+                            />
                         </div>
                     </div>
                 )
                     :
-                    <h2 className={styles.bookNotFound}>Book not found.</h2>
+                    <h2 className={styles.bookNotFound}>Book not found.</h2>)
             }
         </div>
     )
