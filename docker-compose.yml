@@ -1,0 +1,39 @@
+version: "3"
+services:
+
+  database:
+    image: postgres:12.7-alpine
+    container_name: database
+    volumes:
+        - ./backup_data/db:/var/lib/postgresql/data
+    ports:
+        - 5432:5432
+    environment:
+        - POSTGRES_DB=postgres
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+
+  backend:
+    build: ./Backend/book_recommendation
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - database
+    links:
+      - database:database
+  
+  frontend:
+    build: ./Frontend/book_recommendation
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+    ports:
+      - 80:80
+  
+  nginx_backend_server:
+    build: ./nginx_backend_server
+    ports:
+        - 8000:8000
+    depends_on:
+        - backend
