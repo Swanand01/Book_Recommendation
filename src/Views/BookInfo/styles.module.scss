@@ -1,0 +1,73 @@
+h1 {
+    margin: 0 0 30px 0;
+}
+
+hr {
+    width: 100%;
+    height: 1px;
+    color: var(--grey);
+    background-color: var(--grey);
+    border: none;
+}
+
+.header {
+    display: flex;
+}
+
+.backToHome {
+    color: var(--white);
+    justify-self: start;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.backToHome:hover {
+    opacity: 0.7;
+    scale: 1.03;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.bookInfoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+}
+
+.bookInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.bookCoverImage img {
+    height: 300px;
+}
+
+.bookTitle {
+    font-size: 24px;
+    text-align: center;
+}
+
+.bookAuthor {
+    font-size: 22px;
+}
+
+.bookNotFound {
+    color: var(--white);
+    text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+    h1 {
+        font-size: 24px;
+    }
+}
