@@ -2,7 +2,7 @@ import BookCard from "../BookCard";
 import SkeletonLoader from "../SkeletonLoader";
 import styles from "./styles.module.scss";
 
-export default function SimilarBooks({ data, title, isLoading }) {
+export default function BookList({ data, title, isLoading }) {
     return (
         <div>
             {
@@ -17,9 +17,9 @@ export default function SimilarBooks({ data, title, isLoading }) {
                             marginBottom: 30
                         }}
                     /> :
-                    <h1>Books similar to {title}</h1>
+                    <h1>{title}</h1>
             }
-            <div className={styles.similarBooks}>
+            <div className={styles.BookList}>
                 {
                     isLoading ? <SkeletonLoader
                         style={{
