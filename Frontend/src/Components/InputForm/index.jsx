@@ -10,8 +10,8 @@ import { API_ENDPOINTS } from "../../API/ENDPOINTS";
 
 import styles from "./styles.module.scss";
 
-export default function InputForm({ style }) {
-    const [searchQuery, setSearchQuery] = useState("");
+export default function InputForm({ style, initialValue }) {
+    const [searchQuery, setSearchQuery] = useState(initialValue || "");
     const [dropDownActive, setDropDownActive] = useState(false);
     const [autocompleteSuggestions, setAutocompleteSuggestions] = useState([]);
 
@@ -38,7 +38,7 @@ export default function InputForm({ style }) {
         <div className={styles.inputForm} style={style}>
             <div style={{ position: "relative" }}>
                 <SearchBar
-                    onSearch={() => { }}
+                    onSearch={() => { navigate(`/search/${searchQuery}`) }}
                     onChange={(e) => {
                         if (e.trim() !== "") {
                             setDropDownActive(true);
@@ -64,9 +64,9 @@ export default function InputForm({ style }) {
                 }
             </div>
             <StandardButton
-                onClick={() => { navigate(`/book/${searchQuery}`) }}
+                onClick={() => { navigate(`/search/${searchQuery}`) }}
                 disabled={searchQuery.trim() === ""}
-                text={"Get Recommendations"}
+                text={"Search"}
             />
         </div>
     )

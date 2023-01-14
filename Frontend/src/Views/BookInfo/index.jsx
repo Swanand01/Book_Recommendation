@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import useFetch from "../../API/useFetch";
 
-import SimilarBooks from "../../Components/SimilarBooks";
+import BookList from "../../Components/BookList";
 import SkeletonLoader from "../../Components/SkeletonLoader";
 
 import { API_ENDPOINTS } from "../../API/ENDPOINTS";
@@ -82,10 +82,10 @@ export default function BookInfo() {
                             </div>
                         </div>
                         <hr />
-                        <div className={styles.similarBooks}>
-                            <SimilarBooks
+                        <div className={styles.BookList}>
+                            <BookList
                                 data={apiData.similar_books}
-                                title={apiData.book_name}
+                                title={`Books similar to ${apiData.book_name}`}
                                 isLoading={isLoading}
                             />
                         </div>
