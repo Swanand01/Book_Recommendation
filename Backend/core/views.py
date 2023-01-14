@@ -18,6 +18,33 @@ similarity_scores = pickle.load(
 
 
 @api_view(["GET"])
+def book_title_query_results(request, title_query):
+    books = Book.objects.filter(title__icontains=title_query)[:5]
+    print(books)
+
+    if len(books) == 0:
+        return Response({
+            "success": False,
+            "book_name": title_query,
+            "error": "Book not found."
+        })
+
+    books_list = []
+    for book in books:
+        books_list.append({
+            "title": book.title,
+            "author": book.author,
+            "cover_image": book.image_url
+        })
+
+    return Response({
+        "success": True,
+        "book_name": title_query,
+        "books": books_list
+    })
+
+
+@api_view(["GET"])
 def recommend_books(request, book_name):
     if not book_name in pt.index:
         return Response({
@@ -31,23 +58,24 @@ def recommend_books(request, book_name):
         list(enumerate(similarity_scores[index])), key=lambda x: x[1], reverse=True
     )[1:6]
 
-    book = books[books["Book-Title"] == book_name].iloc[0]
+    book = Book.objects.get(title=book_name)
 
     data = []
     for i in similar_items:
-        temp_df = books[books["Book-Title"] == pt.index[i[0]]]
+        title = pt.index[i[0]]
+        book = Book.objects.get(title=title)
         item = {
-            "title": temp_df.drop_duplicates("Book-Title")["Book-Title"].values[0],
-            "author": temp_df.drop_duplicates("Book-Title")["Book-Author"].values[0],
-            "cover_image": temp_df.drop_duplicates("Book-Title")["Image-URL-L"].values[0]
+            "title": book.title,
+            "author": book.author,
+            "cover_image": book.image_url
         }
         data.append(item)
 
     return Response({
         "success": True,
         "book_name": book_name,
-        "author": book["Book-Author"],
-        "cover_image": book["Image-URL-L"],
+        "author": book.author,
+        "cover_image": book.image_url,
         "similar_books": data
     })
 
