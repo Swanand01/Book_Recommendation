@@ -58,7 +58,7 @@ def recommend_books(request, book_name):
         list(enumerate(similarity_scores[index])), key=lambda x: x[1], reverse=True
     )[1:6]
 
-    book = Book.objects.get(title=book_name)
+    viewing_book = Book.objects.get(title=book_name)
 
     data = []
     for i in similar_items:
@@ -74,8 +74,8 @@ def recommend_books(request, book_name):
     return Response({
         "success": True,
         "book_name": book_name,
-        "author": book.author,
-        "cover_image": book.image_url,
+        "author": viewing_book.author,
+        "cover_image": viewing_book.image_url,
         "similar_books": data
     })
 
